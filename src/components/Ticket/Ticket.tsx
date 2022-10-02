@@ -8,14 +8,12 @@ const Ticket = (props:{ticket:ITicket}) => {
 	const ticket = props.ticket 
 	const start = new Date(Date.parse(ticket.segments[0].date)).getHours()
 	const date = new Date(Date.parse(ticket.segments[0].date)+ticket.segments[0].duration).getHours()
-	console.log(start, date);
-	
 	// console.log(Date.parse('2022-10-06T09:46:00.000Z'));
-	
+	console.log(ticket.segments);
 	return (
 		<div className={cl.ticket}>
 			<div className={cl.title}>
-				<div>{ticket.price}</div>
+				<div>{ticket.price.toString().slice(0,2)}  {ticket.price.toString().slice(2)} P</div>
 				<img src={`//pics.avs.io/99/36/${ticket.carrier}.png`} alt="carrier" />
 			</div>
 
