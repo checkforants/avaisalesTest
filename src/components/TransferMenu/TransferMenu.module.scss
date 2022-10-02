@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+.transferMenu{
+	background-color: white;
+	box-sizing: border-box;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 17px;
+	height: 260px;
+}
+span{
+	font-family: 'Open Sans', sans-serif;
+	font-weight:600;
+	color: #4A4A4A;
+	font-size: 12px;
+	letter-spacing: 0.5px;
+}

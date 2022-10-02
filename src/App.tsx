@@ -6,6 +6,9 @@ import axios from 'axios'
 import { ITicket } from './models';
 import aviasalesLogo from './images/Logo.png'
 import Checkbox from './components/CheckBox/CheckBox';
+import Ticket from './components/Ticket/Ticket';
+import TransferMenu from './components/TransferMenu/TransferMenu';
+import TicketsOptionsList from './components/TicketsOptionsList/TicketsOptionsList';
 
 function App() {
 	const [searchId, setSearchId] = useState('')
@@ -54,18 +57,15 @@ function App() {
 		</div>
 
 		<div className='main'>
-			<Checkbox/>
+			<TransferMenu/>
+
 			<div className='tickets'>
-				<ul className='ticketsOptionsList'>
-					<li className="ticketsOption">Самый дешёвый</li>
-					<li className="ticketsOption">Самый быстрый</li>
-					<li className="ticketsOption">Оптимальный</li>
-				</ul>
+				<TicketsOptionsList/>
 				{loader
 				?<div>Loading...</div>
 				:error?<div>{error}</div>
 				:tickets.slice(0,amount).map((el:ITicket, index:number)=>
-					<div key={index}>{el.price}</div>
+					<Ticket key={index} ticket={el}></Ticket>
 					)
 				}
 				<button onClick={()=>setAmount(prev=>prev+=5)}>Показать ещё 5 билетов</button>

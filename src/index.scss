@@ -1,10 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
 html{
-	height: 100vh;
+	height: 100%;
+	box-sizing: border-box;
 }
 body {
   margin: 0;
+  box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Open Sans',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -16,14 +19,15 @@ code {
 }
 .App{
 	box-sizing: border-box;
-	height: 100vh;
-	padding: 50px 103px;
+	height: 100%;
+	padding: 50px;
 	display: flex;
 	flex-direction: column;
-	
+	align-items: center;
 	width: 100%;
 	position: relative;
-	gap: 50px;
+	gap: 30px;
+	background-color: #F1FCFF;
 }
 .logo{
 	width: 100%;
@@ -35,21 +39,16 @@ code {
 	}
 }
 .main{
+	box-sizing: border-box;
 	display: flex;
+	gap: 20px;
+	
 
-	.checkBox{
-
-	}
 	.tickets{
-		.ticketsOptionsList{
-			display: flex;
-			padding-left: 0;
-			margin: 0;
-
-		}
-		.ticketsOption{
-			list-style-type: none; 
-		}
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
 	}
 }
 
