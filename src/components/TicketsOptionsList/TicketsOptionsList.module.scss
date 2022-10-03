@@ -1,14 +1,18 @@
 .ticketsOptionsList{
 	display: flex;
 	padding-left: 0;
-	
+	color: #4A4A4A;
+	font-weight: 600;
+	line-height: 20px;
+	letter-spacing: 0.5px;
 	margin: 0;
 	background-color: white;
-	border-radius: 10px;
-	border: 1.5px solid #DFE5EC;
+	border-radius: 7px;
+	
 	box-shadow: 0px 0px 6px 1px rgba(#4A4A4A, 0.1);
 }
 .ticketsOption{
+	// border: 1.5px solid #DFE5EC;
 	cursor: pointer ;
 	font-family: 'Open Sans', sans-serif;
 	list-style-type: none; 
@@ -23,7 +27,13 @@
 	&:last-of-type{
 		border-radius: 0px 8px 8px 0px;
 	}
+	&:hover{
+		background-color: rgba($color: #2196F3, $alpha: 0.2) ;
+		// border-color: rgba(#2196F3, 0.5);
+		color: #2196F3;
+	}
 }
 .ticketsOption.selected{
 	background-color: #2196F3;
+	color: white;
 }

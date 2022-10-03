@@ -9,10 +9,11 @@ import Checkbox from './components/CheckBox/CheckBox';
 import Ticket from './components/Ticket/Ticket';
 import TransferMenu from './components/TransferMenu/TransferMenu';
 import TicketsOptionsList from './components/TicketsOptionsList/TicketsOptionsList';
-
+import { useGetSearchId2Query } from './redux';
+import { debounce } from './API/debounce';
 function App() {
 	const [searchId, setSearchId] = useState('')
-	const [tickets, setTickets] =useState([])
+	const [tickets, setTickets] =useState<ITicket[]>([])
 	const [loader, setLoader]= useState(false)
 	const [error, setError]= useState(false)
 	const [stopped, setStopped] = useState(false)
@@ -21,6 +22,8 @@ function App() {
 	const [transfersAmount, setTransfersAmount] = useState(['all',0,1,2,3]) 
 	
 	
+	// const {data:allo={}, isLoading, isError} = useGetSearchId2Query(12)
+	// console.log(allo);
 	
 	async function getSearchId(){
 		try{
@@ -36,13 +39,30 @@ function App() {
 	
 	async function getData(id:string){
 		
+		// console.log(response.data.stop);
 		try{
-			const response :any = await axios.get(`https://front-test.dev.aviasales.ru/tickets?searchId=${id}`)
-			if (!response.data.stop) 
-				setStopped(true)
-				setTickets(response.data.tickets.sort(compareFunction));
-			 
+			let stop = false 
+			while (!stop){
+				let response:any = await axios.get(`https://front-test.dev.aviasales.ru/tickets?searchId=${id}`)
+				stop = response.data.stop
+				console.log(stop);
+				
+				
+				setTickets(prev=>[...prev, ...response.data.tickets]);
+			}
+			
+			
+			// while (!response.data.stop){
+			// 	const response :any = await axios.get(`https://front-test.dev.aviasales.ru/tickets?searchId=${id}`)
+				
+			// }
+			
+			// 	setTickets((prev)=>[...prev, response]);
+			// }
+			 	// return response.data
 		}catch(error:any){
+			console.log(error.message);
+			
 			setError(error.message);
 
 		}
@@ -86,7 +106,7 @@ function App() {
 			})
 		
 	}, [])
-	
+	console.log(tickets);
 	// ).filter((el:ITicket)=>(el.segments[0].stops.length===0&&transfersAmount.includes(2)))
   return (
     <div className="App">
@@ -100,7 +120,7 @@ function App() {
 				<TicketsOptionsList sortMethod={sortMethod} setSortMethod={setSortMethod}/>
 				{loader
 				?<div>Loading...</div>
-				:error?<div>{error}</div>
+				:error&&tickets.length===0?<div>{error}</div>
 				:tickets?.filter((el:ITicket)=>transfersAmount.includes(el.segments[0].stops.length)).sort(sortMethod===1?compareFunction:sortMethod===2?compareFunction2:compareFunction3).slice(0,amount).map((el:ITicket, index:number)=>
 					<Ticket key={index} ticket={el}></Ticket>
 					)
