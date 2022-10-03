@@ -4,12 +4,12 @@ import Segment from '../Segment/Segment';
 import { ITicket } from './../../models';
 import cl from './Ticket.module.scss'
 const Ticket = (props:{ticket:ITicket}) => {
-	console.log(props.ticket);
+
 	const ticket = props.ticket 
 	const start = new Date(Date.parse(ticket.segments[0].date)).getHours()
 	const date = new Date(Date.parse(ticket.segments[0].date)+ticket.segments[0].duration).getHours()
 	// console.log(Date.parse('2022-10-06T09:46:00.000Z'));
-	console.log(ticket.segments);
+
 	return (
 		<div className={cl.ticket}>
 			<div className={cl.title}>
@@ -18,8 +18,8 @@ const Ticket = (props:{ticket:ITicket}) => {
 			</div>
 
 			<div className={cl.segments}>
-				{ticket?.segments.map(segment=>
-					<Segment segment={segment}></Segment>
+				{ticket?.segments.map((segment, index)=>
+					<Segment key = {index} segment={segment}></Segment>
 					)}
 			</div>
 		</div>

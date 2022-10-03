@@ -9,11 +9,21 @@
 	box-shadow: 0px 0px 6px 1px rgba(#4A4A4A, 0.1);
 }
 .ticketsOption{
+	cursor: pointer ;
 	font-family: 'Open Sans', sans-serif;
 	list-style-type: none; 
 	padding: 15px 25px;
-	
+	box-sizing: border-box;
 	&:not(:first-of-type){
 		border-left: 1.5px solid #DFE5EC;
 	}
+	&:first-of-type{
+		border-radius: 8px 0px 0px 8px;
+	}
+	&:last-of-type{
+		border-radius: 0px 8px 8px 0px;
+	}
+}
+.ticketsOption.selected{
+	background-color: #2196F3;
 }

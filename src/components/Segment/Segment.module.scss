@@ -3,9 +3,10 @@
 	flex-direction: row;
 	justify-content: space-between;
 }
-.transferData{
+.part{
 	display: flex;
 	flex-direction: column;
+	align-content: left;
 }
 .title{
 	font-size: 12px;
@@ -13,6 +14,7 @@
 	color: #A0B0B9;
 	letter-spacing: 0.5px;
 	font-weight: 600;
+
 }
 .body{
 	color: #4A4A4A;

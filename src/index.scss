@@ -19,6 +19,7 @@ code {
 }
 .App{
 	box-sizing: border-box;
+	min-height: 100vh;
 	height: 100%;
 	padding: 50px;
 	display: flex;

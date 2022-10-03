@@ -18,7 +18,7 @@ const Segment = (props:{segment:ISegment}) => {
 	
 	return (
 		<div className={cl.segment}>
-			<div>
+			<div className={cl.part}>
 				<div className={cl.title}>
 					{segment.origin} - {segment.destination}
 				</div>
@@ -26,7 +26,7 @@ const Segment = (props:{segment:ISegment}) => {
 					{`${departure.slice(0, 5)} - ${arrival.slice(0, 5)}`}
 				</div>
 			</div>
-			<div className={cl.transferData}>
+			<div className={cl.part}>
 				<div className={cl.title}>
 					В ПУТИ
 				</div>
@@ -34,7 +34,7 @@ const Segment = (props:{segment:ISegment}) => {
 					{Math.floor(durationInMillisec/3600000)}ч {Math.floor(durationInMillisec%3600000)/60000}м
 				</div>
 			</div>
-			<div>
+			<div className={cl.part}>
 				<div className={cl.title}>
 					{stopsAmountStr}
 				</div>
