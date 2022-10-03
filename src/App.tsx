@@ -12,13 +12,14 @@ import TicketsOptionsList from './components/TicketsOptionsList/TicketsOptionsLi
 
 function App() {
 	const [searchId, setSearchId] = useState('')
-	const [tickets, setTickets] = useState([])
+	const [tickets, setTickets] =useState([])
 	const [loader, setLoader]= useState(false)
 	const [error, setError]= useState(false)
 	const [stopped, setStopped] = useState(false)
 	const [amount,setAmount] = useState(5)
 	const [sortMethod, setSortMethod] = useState(1)
-
+	const [transfersAmount, setTransfersAmount] = useState(['all',0,1,2,3]) 
+	
 	
 	
 	async function getSearchId(){
@@ -39,10 +40,11 @@ function App() {
 			const response :any = await axios.get(`https://front-test.dev.aviasales.ru/tickets?searchId=${id}`)
 			if (!response.data.stop) 
 				setStopped(true)
-				setTickets(response.sort(compareFunction3));
-			return response.data.tickets
+				setTickets(response.data.tickets.sort(compareFunction));
+			 
 		}catch(error:any){
 			setError(error.message);
+
 		}
 	}
 	function compareFunction(a:ITicket,b:ITicket){
@@ -72,7 +74,7 @@ function App() {
 		for (let elem of  b.segments){
 			sum2+=elem.duration
 		}
-		return sum1/1000*a.price- sum2/1000*b.price ;
+		return (sum1*20+a.price)- (sum2*20+b.price) ;
 		// return a.segments[0].duration - b.segments[0].duration;
 	}
 	useEffect(()=> {
@@ -80,12 +82,12 @@ function App() {
 		getSearchId()
 			.then(id=>getData(id))
 			.then(res=>{
-				setTickets(res.sort(compareFunction));
 			 	setLoader(false)
 			})
 		
 	}, [])
 	
+	// ).filter((el:ITicket)=>(el.segments[0].stops.length===0&&transfersAmount.includes(2)))
   return (
     <div className="App">
 		<div className='logo'>
@@ -93,13 +95,13 @@ function App() {
 		</div>
 
 		<div className='main'>
-			<TransferMenu/>
+			<TransferMenu transfersAmount={transfersAmount} setTransfersAmount={setTransfersAmount}/>
 			<div className='tickets'>
 				<TicketsOptionsList sortMethod={sortMethod} setSortMethod={setSortMethod}/>
 				{loader
 				?<div>Loading...</div>
 				:error?<div>{error}</div>
-				:tickets.sort(sortMethod===1?compareFunction:sortMethod===2?compareFunction2:compareFunction3).slice(0,amount).map((el:ITicket, index:number)=>
+				:tickets?.filter((el:ITicket)=>transfersAmount.includes(el.segments[0].stops.length)).sort(sortMethod===1?compareFunction:sortMethod===2?compareFunction2:compareFunction3).slice(0,amount).map((el:ITicket, index:number)=>
 					<Ticket key={index} ticket={el}></Ticket>
 					)
 				}
